@@ -1,0 +1,61 @@
+.task-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    padding: 10px;
+}
+
+.task-grid-item {
+    height: 100%;
+}
+
+.task-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+}
+
+.task-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.task-card .task-name {
+    margin: 0 0 12px 0;
+    font-size: 1.2rem;
+    color: #333;
+}
+
+.task-card .task-project {
+    margin-bottom: auto;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.task-card .task-timestamp {
+    margin-top: 12px;
+    font-size: 0.8rem;
+    color: #999;
+    text-align: right;
+}
+
+.task-grid-loading,
+.task-grid-error,
+.task-grid-empty {
+    grid-column: 1 / -1;
+    padding: 20px;
+    text-align: center;
+    color: #666;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.task-grid-error {
+    color: #dc3545;
+}
