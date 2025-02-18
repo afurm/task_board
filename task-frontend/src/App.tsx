@@ -14,11 +14,12 @@ function TaskDisplay({ projectId, viewStyle }: { projectId: string; viewStyle: '
   const { loading, error, data, refetch } = useQuery(GET_TASKS_BY_PROJECT, {
     variables: { projectId },
     pollInterval: 5000, // Fallback polling every 5 seconds
-    fetchPolicy: 'cache-and-network',
+    fetchPolicy: 'cache-first', // Use cache first to prevent flicker
+    nextFetchPolicy: 'cache-and-network', // Then update in background
+    notifyOnNetworkStatusChange: false, // Don't show loading state for background updates
     onError: (error) => {
       console.error('Error fetching tasks:', error);
     },
-    notifyOnNetworkStatusChange: true,
   });
 
   // Subscribe to new tasks
@@ -36,6 +37,15 @@ function TaskDisplay({ projectId, viewStyle }: { projectId: string; viewStyle: '
     },
   });
 
+  // Only show loading state on initial load
+  if (loading && !data) {
+    return (
+      <div className="task-grid-loading">
+        Loading tasks...
+      </div>
+    );
+  }
+
   // Retry on error
   if (error) {
     return (
@@ -48,7 +58,7 @@ function TaskDisplay({ projectId, viewStyle }: { projectId: string; viewStyle: '
 
   const commonProps = {
     tasks: data?.tasksByProject || [],
-    loading,
+    loading: false, // Never show loading state after initial load
     error,
   };
 
