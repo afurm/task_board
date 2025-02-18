@@ -10,7 +10,8 @@ import { GET_TASKS_BY_PROJECT } from './graphql/queries';
 import { TASK_CREATED_SUBSCRIPTION } from './graphql/subscriptions';
 import './App.css';
 
-function TaskDisplay({ projectId, viewStyle }: { projectId: string; viewStyle: 'list' | 'grid' }) {
+// Export for testing
+export function TaskDisplay({ projectId, viewStyle }: { projectId: string; viewStyle: 'list' | 'grid' }) {
   const { loading, error, data, refetch } = useQuery(GET_TASKS_BY_PROJECT, {
     variables: { projectId },
     pollInterval: 5000, // Fallback polling every 5 seconds
